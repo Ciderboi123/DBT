@@ -68,11 +68,11 @@
 
 <!-- ABOUT THE PROJECT -->
 
-## About The Project
+## 📢 About The Project
 This is a template project for setting up a discord bot in discord.js using typescript
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-### Built With
+### ⚙ Built With
 * [Discord.js](https://discord.js.org/)
 * [Typescript](https://typescriptlang.org/)
 
@@ -82,16 +82,16 @@ This is a template project for setting up a discord bot in discord.js using type
 
 <!-- GETTING STARTED -->
 
-## Getting Started
+## 📒 Getting Started
 
-### Prerequisites
+### 📦 Prerequisites
 
 * [npm](https://nodejs.org) > `v16.13.0`
   ```sh
   npm install npm@latest -g
   ```
 
-### Installation
+### 🔧 Installation
 1. Clone the repo
    ```sh
    git clone https://github.com/Ciderboi123/DBT.git
@@ -126,7 +126,7 @@ This is a template project for setting up a discord bot in discord.js using type
 
 <!-- CONTRIBUTING -->
 
-## Contributing
+## ✨ Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any
 contributions you make are **greatly appreciated**.
@@ -147,7 +147,7 @@ Don't forget to give the project a star! Thanks again!
 
 <!-- LICENSE -->
 
-## License
+## © License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
@@ -157,7 +157,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 <!-- CONTACT -->
 
-## Contact
+## ☎ Contact
 
 Your Name - [@ciderboi123](https://ciderboi.xyz/twitter) - `me@ciderboi.xyz`
 
@@ -167,9 +167,6 @@ Discord: [Invite](https://ciderboi.xyz/discord)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
-<!-- ACKNOWLEDGMENTS -->
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->

@@ -1,8 +1,5 @@
 {
 	"Settings": {
-		"Token": "You bot's token",
-		"GuildID": "",
-		"Timezone": "",
-		"MongoDb": ""
+		"Token": "super secret token"
 	}
 }
