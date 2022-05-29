@@ -1,9 +1,9 @@
-import {CommandInteraction, GuildMember} from 'discord.js';
+import { CommandInteraction, GuildMember } from 'discord.js';
 
-import {RunFunction} from '../Interfaces/Event';
-import {createEmbed, findRole, hasRole} from '../Utils/Utils'
+import { RunFunction } from '../Interfaces/Event';
+import { createEmbed, findRole, hasRole } from '../Utils/Utils';
 
-import {Presets} from '../Configs/message.json';
+import { Presets } from '../Configs/message.json';
 
 export const name = 'interactionCreate';
 
@@ -12,13 +12,13 @@ export const run: RunFunction = async (bot, interaction: CommandInteraction) => 
 
 	if (interaction.isCommand()) {
 		const command = bot.commands.find(
-				(x) => x.name.toLowerCase() == interaction.commandName.toLowerCase()
+				(x) => x.name.toLowerCase() == interaction.commandName.toLowerCase(),
 		);
 		if (!command) {
 			for (let cmds of bot.guilds.cache) {
-				let cmd = cmds[1]
-				cmd.commands.cache.find(x => x.name.toLowerCase() == interaction.commandName)
-				if (cmd) cmd.delete()
+				let cmd = cmds[1];
+				cmd.commands.cache.find(x => x.name.toLowerCase() == interaction.commandName);
+				if (cmd) cmd.delete();
 			}
 
 			return interaction.reply({
@@ -28,16 +28,16 @@ export const run: RunFunction = async (bot, interaction: CommandInteraction) => 
 		}
 		let member = interaction.member as GuildMember;
 		if (command.permission) {
-			if (!command.permission[0]) command.permission[0] = '@everyone'
+			if (!command.permission[0]) command.permission[0] = '@everyone';
 			for (const role of command.permission) {
-				if (!hasRole(findRole(role, member.guild), member)) permissions.push(false)
-				else permissions.push(true)
+				if (!hasRole(findRole(role, member.guild), member)) permissions.push(false);
+				else permissions.push(true);
 			}
 		} else {
-			command.permission = ['@everyone']
+			command.permission = [ '@everyone' ];
 			for (const role of command.permission) {
-				if (!hasRole(findRole(role, member.guild), member)) permissions.push(false)
-				else permissions.push(true)
+				if (!hasRole(findRole(role, member.guild), member)) permissions.push(false);
+				else permissions.push(true);
 			}
 		}
 
@@ -50,19 +50,19 @@ export const run: RunFunction = async (bot, interaction: CommandInteraction) => 
 						{
 							searchFor: /{roles}/g, replaceWith: command.permission.map(r => {
 								let _r = findRole(r, interaction.guild);
-								if (_r) return `<@&${_r.id}>`
-							}).join(", ")
+								if (_r) return `<@&${ _r.id }>`;
+							}).join(', '),
 						},
-						{searchFor: /{timestamp}/g, replaceWith: new Date()}
-					]
-				}, member)
+						{ searchFor: /{timestamp}/g, replaceWith: new Date() },
+					],
+				}, member),
 			],
 			ephemeral: true,
-		})
+		});
 	}
 	if (interaction.isSelectMenu()) {
 		if (interaction.customId == 'logchannel') {
-			await interaction.client.emit('setupEmbedChannelAdd', interaction)
+			await interaction.client.emit('setupEmbedChannelAdd', interaction);
 		}
 	}
 };

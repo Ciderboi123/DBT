@@ -1,10 +1,10 @@
 import * as Colors from './Colors';
-import {Guild, GuildMember, MessageButton, MessageEmbed, Role} from 'discord.js';
+import { Guild, GuildMember, MessageButton, MessageEmbed, Role } from 'discord.js';
 import moment from 'moment';
 
-import {client} from '../index';
+import { client } from '../index';
 
-export {Colors};
+export { Colors };
 
 export function resolveUser(args: any, guild: Guild): GuildMember {
 	const user: GuildMember | boolean = guild.members.cache.find((user) => {
@@ -12,12 +12,8 @@ export function resolveUser(args: any, guild: Guild): GuildMember {
 		else if (user.user.username.toLowerCase() == args.toLowerCase())
 			return true;
 		else if (user.user.tag.toLowerCase() == args.toLowerCase()) return true;
-		else if (
-				user.displayName &&
-				user.displayName.toLowerCase() == args.toLowerCase()
-		)
-			return true;
-		else return false;
+		else return user.displayName &&
+					user.displayName.toLowerCase() == args.toLowerCase();
 	});
 
 	if (user) return user;
@@ -51,30 +47,30 @@ export interface CreateEmbedOption {
 
 export function parseVariables(prefix: string, user: GuildMember): CreateEmbedOption['variables'] {
 	if (prefix) return [
-		{searchFor: new RegExp(`${prefix}-id`, 'g'), replaceWith: user.id},
-		{searchFor: new RegExp(`${prefix}-displayname`, 'g'), replaceWith: user.displayName},
-		{searchFor: new RegExp(`${prefix}-username`, 'g'), replaceWith: user.user.username},
-		{searchFor: new RegExp(`${prefix}-tag`, 'g'), replaceWith: user.user.tag},
-		{searchFor: new RegExp(`${prefix}-mention`, 'g'), replaceWith: `<@${user.id}>`},
-		{searchFor: new RegExp(`${prefix}-pfp`, 'g'), replaceWith: user.user.displayAvatarURL({dynamic: true})},
+		{ searchFor: new RegExp(`${ prefix }-id`, 'g'), replaceWith: user.id },
+		{ searchFor: new RegExp(`${ prefix }-displayname`, 'g'), replaceWith: user.displayName },
+		{ searchFor: new RegExp(`${ prefix }-username`, 'g'), replaceWith: user.user.username },
+		{ searchFor: new RegExp(`${ prefix }-tag`, 'g'), replaceWith: user.user.tag },
+		{ searchFor: new RegExp(`${ prefix }-mention`, 'g'), replaceWith: `<@${ user.id }>` },
+		{ searchFor: new RegExp(`${ prefix }-pfp`, 'g'), replaceWith: user.user.displayAvatarURL({ dynamic: true }) },
 		{
-			searchFor: new RegExp(`${prefix}-createdat`, 'g'),
-			replaceWith: moment(user.user.createdAt).format("MMMM Do YYYY. h:mm a")
+			searchFor: new RegExp(`${ prefix }-createdat`, 'g'),
+			replaceWith: moment(user.user.createdAt).format('MMMM Do YYYY. h:mm a'),
 		},
-	]
+	];
 	else return [
-		{searchFor: /{user-id}/g, replaceWith: user.id},
-		{searchFor: /{user-displayname}/g, replaceWith: user.displayName},
-		{searchFor: /{user-username}/g, replaceWith: user.user.username},
-		{searchFor: /{user-tag}/g, replaceWith: user.user.tag},
-		{searchFor: /{user-mention}/g, replaceWith: `<@${user.id}>`},
-		{searchFor: /{user-pfp}/g, replaceWith: user.user.displayAvatarURL({dynamic: true})},
-		{searchFor: /{user-createdat}/g, replaceWith: moment(user.user.createdAt).format("MMMM Do YYYY. h:mm a")},
-	]
+		{ searchFor: /{user-id}/g, replaceWith: user.id },
+		{ searchFor: /{user-displayname}/g, replaceWith: user.displayName },
+		{ searchFor: /{user-username}/g, replaceWith: user.user.username },
+		{ searchFor: /{user-tag}/g, replaceWith: user.user.tag },
+		{ searchFor: /{user-mention}/g, replaceWith: `<@${ user.id }>` },
+		{ searchFor: /{user-pfp}/g, replaceWith: user.user.displayAvatarURL({ dynamic: true }) },
+		{ searchFor: /{user-createdat}/g, replaceWith: moment(user.user.createdAt).format('MMMM Do YYYY. h:mm a') },
+	];
 }
 
 export function createEmbed(_options: CreateEmbedOption, member: GuildMember): MessageEmbed {
-	const {options} = _options;
+	const { options } = _options;
 
 	// Registering Veriables
 	let Title = options.Title ? options.Title : '';
@@ -97,7 +93,7 @@ export function createEmbed(_options: CreateEmbedOption, member: GuildMember): M
 
 	// Replacing Placeholders
 	if (_options.variables) {
-		for (let variable of parseVariables(null, member)) _options.variables.push(variable)
+		for (let variable of parseVariables(null, member)) _options.variables.push(variable);
 		for (let variable of _options.variables) {
 			if (Title) Title = Title.replace(variable.searchFor, variable.replaceWith);
 			if (Description) Description = Description.replace(variable.searchFor, variable.replaceWith);
@@ -148,7 +144,7 @@ export function createEmbed(_options: CreateEmbedOption, member: GuildMember): M
 	else if (FooterText) embed.setFooter(FooterText);
 	if (Image) embed.setImage(Image);
 	if (Thumbnail) embed.setThumbnail(Thumbnail);
-	if (Color) embed.setColor(`#${Color}`);
+	if (Color) embed.setColor(`#${ Color }`);
 	if (Url) embed.setURL(Url);
 	if (Fields && Fields.length) _fields.forEach((field) => embed.addField(field.name, field.value, field.inline));
 	if (Author) {
@@ -182,29 +178,29 @@ export function calculateButton(options: ButtonOptions, variables?: { searchFor:
 	switch (options.Color.toLowerCase()) {
 		case 'blurple':
 		case 'primary': {
-			Color = 1
+			Color = 1;
 			break;
 		}
 
 		case 'grey':
 		case 'secondary': {
-			Color = 2
+			Color = 2;
 			break;
 		}
 
 		case 'green':
 		case 'success': {
-			Color = 3
+			Color = 3;
 			break;
 		}
 		case 'red':
 		case 'danger': {
-			Color = 4
+			Color = 4;
 			break;
 		}
 		case 'url':
 		case 'link': {
-			Color = 5
+			Color = 5;
 			break;
 		}
 	}
@@ -223,7 +219,7 @@ export function calculateButton(options: ButtonOptions, variables?: { searchFor:
 		}
 	}
 
-	let button = new MessageButton()
+	let button = new MessageButton();
 	if (Text) button.setLabel(Text);
 	if (Color) button.setStyle(Color);
 	if (Emoji) button.setEmoji(Emoji);
@@ -237,7 +233,7 @@ export function calculateButton(options: ButtonOptions, variables?: { searchFor:
 export function findRole(role: string, guild: Guild): Role | void {
 	let _role = guild.roles.cache.find(r => r.name.toLowerCase() == role.toLowerCase() || r.id == role.toLowerCase());
 	if (!_role) {
-		client.logger.warn(`${role} was not found in the ${guild.name} guild`);
+		client.logger.warn(`${ role } was not found in the ${ guild.name } guild`);
 		return undefined;
 	}
 	return _role;
@@ -245,14 +241,14 @@ export function findRole(role: string, guild: Guild): Role | void {
 
 export function hasRole(role: any, member: GuildMember): boolean {
 	let _role = findRole(role.id, member.guild);
-	return (_role ? (member.roles.cache.has(_role.id) ? true : false) : false);
+	return (_role ? (member.roles.cache.has(_role.id)) : false);
 }
 
 export function findChannel(channelName: string, guild: Guild) {
 	let channel = guild.channels.cache.find(c => c.name.toLowerCase() == channelName.toLowerCase() || c.id == channelName);
 	if (!channel) {
-		client.logger.warn(`${channelName} was not found in ${guild.name} guild`)
-		return undefined
+		client.logger.warn(`${ channelName } was not found in ${ guild.name } guild`);
+		return undefined;
 	}
 	return channel;
 }

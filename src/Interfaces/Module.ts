@@ -1,5 +1,5 @@
-import {Event} from "./Event";
-import {Command} from "./Commands";
+import { Event } from './Event';
+import { Command } from './Commands';
 
 export interface Module {
 	name: string;
